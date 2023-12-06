@@ -6,9 +6,13 @@ const { ACCESS_TOKEN, SPACE_ID } = process.env;
 function useContentful(query) {
     const [data, setData] = useState(null);
     let [errors, setErrors] = useState(null);
+    let [keysProvided, setKeysProvided] = useState(false);
+
+    if (ACCESS_TOKEN && SPACE_ID) setKeysProvided(true);
 
     useEffect(() => {
       console.log("💅🏻 in useEffect");
+
       window
         .fetch(`https://graphql.contentful.com/content/v1/spaces/${SPACE_ID}`, {
           method: "POST",
@@ -26,8 +30,7 @@ function useContentful(query) {
       .catch(error => setErrors([error]))
     }, [query]);
 
-      return { data, errors}
- 
+      return { keysProvided, data, errors}
 }
 
 export default useContentful

@@ -8,7 +8,15 @@ const query = `
 `;
 
 function App() {
-  let { data, errors } = useContentful(query);
+  let { keysProvided, data, errors } = useContentful(query);
+
+  if (!keysProvided) return (
+    <>
+      <p>Welcome.</p>
+      <p>Please create a .env file and set your contentful ACCESS_TOKEN and SPACE_ID.</p>
+      <p>After you created a content model and have content available you can paste your graphiQL query between line 6-8 in this file.</p>
+    </>
+  )
 
   if (errors) return (
     <span style={{color: "red"}}>
